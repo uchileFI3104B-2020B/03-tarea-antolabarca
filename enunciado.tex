@@ -1,0 +1,172 @@
+\documentclass[letter, 11pt]{article}
+%% ================================
+%% Packages =======================
+\usepackage[utf8]{inputenc}      %%
+\usepackage[T1]{fontenc}         %%
+\usepackage{lmodern}             %%
+\usepackage[spanish]{babel}      %%
+\decimalpoint                    %%
+\usepackage{fullpage}            %%
+\usepackage{fancyhdr}            %%
+\usepackage{graphicx}            %%
+\usepackage{amsmath}             %%
+\usepackage{color}               %%
+\usepackage{mdframed}            %%
+\usepackage[colorlinks]{hyperref}%%
+%% ================================
+%% ================================
+
+%% ================================
+%% Page size/borders config =======
+\setlength{\oddsidemargin}{0in}  %%
+\setlength{\evensidemargin}{0in} %%
+\setlength{\marginparwidth}{0in} %%
+\setlength{\marginparsep}{0in}   %%
+\setlength{\voffset}{-0.5in}     %%
+\setlength{\hoffset}{0in}        %%
+\setlength{\topmargin}{0in}      %%
+\setlength{\headheight}{54pt}    %%
+\setlength{\headsep}{1em}        %%
+\setlength{\textheight}{8.5in}   %%
+\setlength{\footskip}{0.5in}     %%
+%% ================================
+%% ================================
+
+%% =============================================================
+%% Headers setup, environments, colors, etc.
+%%
+%% Header ------------------------------------------------------
+\fancypagestyle{firstpage}
+{
+  \fancyhf{}
+  \lhead{\includegraphics[height=4.5em]{LogoDFI.jpg}}
+  \rhead{FI3104-1 \semestre\\
+         Métodos Numéricos para la Ciencia e Ingeniería\\
+         Prof.: \profesor}
+  \fancyfoot[C]{\thepage}
+}
+
+\pagestyle{plain}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+%% -------------------------------------------------------------
+%% Environments -------------------------------------------------
+\newmdenv[
+  linecolor=gray,
+  fontcolor=gray,
+  linewidth=0.2em,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  skipabove=\topsep
+  skipbelow=\topsep,
+]{ayuda}
+%% -------------------------------------------------------------
+%% Colors ------------------------------------------------------
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+%% -------------------------------------------------------------
+%% Aliases ------------------------------------------------------
+\newcommand{\scipy}{\texttt{scipy}}
+%% -------------------------------------------------------------
+%% =============================================================
+%% =============================================================================
+%% CONFIGURACION DEL DOCUMENTO =================================================
+%% Llenar con la información pertinente al curso y la tarea
+%%
+\newcommand{\tareanro}{3}
+\newcommand{\fechaentrega}{7/11/2020 21:59 hrs}
+\newcommand{\semestre}{2020B}
+\newcommand{\profesor}{Valentino González}
+%% =============================================================================
+%% =============================================================================
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\begin{center}
+  {\uppercase{\LARGE \bf Tarea \tareanro}}\\
+  Fecha de entrega: \fechaentrega
+\end{center}
+
+
+%% =============================================================================
+%% ENUNCIADO ===================================================================
+\noindent{\large \bf Problema}
+
+Para planetas que orbitan cerca del Sol, como Mercurio, el potencial
+gravitacional se puede escribir como:
+
+$$U(r) = - \dfrac{GM_\odot m}{r} + \alpha\dfrac{GM_\odot m}{r^2}$$
+
+\noindent donde $G$ es la constante de gravitación universal, $M_\odot$ es la
+masa del Sol, $m$ es la masa del planeta, $r$ es la distancia entre el planeta
+y el Sol, y $\alpha$ es un número pequeño. Esta corrección a la ley de
+gravitación de Newton se debe a los efectos de los otros planetas del sistema
+solar (particularmente Júpiter) y a efectos relacionados con relatividad
+general.
+
+Bajo este potencial, las órbitas siguen siendo planas pero ya no son cerradas
+sino que precesan, es decir, el afelio (punto más lejano de la órbita) gira
+alrededor del Sol.
+
+En este problema exploraremos este tipo de órbitas y compararemos distintos
+métodos de integración de la ecuación diferencial. También utilizaremos
+programación orientada al objeto como ejercicio práctico para familiarizarnos
+con este paradigma de programación.
+
+\begin{enumerate}
+
+  \item El archivo llamado \texttt{codigos/planeta.py} contiene el esqueleto de
+    la clase Planeta.  Ud. debe implementar los métodos de esa clase. Los
+    docstrings explican en qué debe consistir cada método. Ud. tiene libertad
+    de mejorar los docstrings, y agregar atributos y métodos a la clase según
+    le parezca conveniente para resolver el problema descrito a continuación.
+
+    El archivo llamado \texttt{codigos/solucion\_usando\_planeta.py} muestra cómo
+    incluir la clase \texttt{Planeta} en un script separado. Ud. también puede
+    resolver todo dentro del mismo archivo, en cuyo caso puede descartar
+    \texttt{solucion\_usando\_planeta.py}.
+
+  \item Parta por estudiar el caso $\alpha=0$ y considere las siguientes
+    condiciones iniciales:
+    \begin{flalign*}
+      x_0 &= 10\\
+      y_0 &= 0\\
+      v_x &= 0\\
+    \end{flalign*}
+
+    Además, utilice unidades tales que $GM_\odot m = 1$ y escoja $v_y$ según le
+    parezca (pero asegúrese de que la energía total sea negativa).
+
+    Integre la ecuación de movimiento por aproximadamente 5 órbitas usando los
+    métodos de RK, Verlet, y Beeman. Grafique las órbitas y la energía total
+    del sistema como función del tiempo en los 3 casos. Comente los resultados.
+
+  \item Ahora considere el caso $\alpha=10^{-2.XXX}$ (donde XXX son los 3
+    últimos dígitos de su RUT, antes del dígito verificador). Integre la
+    ecuación de movimiento usando el método de Beeman por al menos 30 órbitas.
+    Determine la velocidad angular de precesión. ¿Cómo lo hizo? En particular,
+    ¿cómo determinó la posición del afelio? Grafique la órbita y la energía
+    como función del tiempo.
+
+\end{enumerate}
+
+\begin{ayuda}
+  \small
+  \noindent {\bf Comentarios.} 
+
+  1. Esta tarea pide explícitamente que utilice OOP (Object Oriented
+  Programming) para su desarrollo. Es un ejercicio útil para aprender esta
+  técnica.
+
+  2. En esta tarea debe implementar Verlet y Beeman pero puede utilizar RK4 (u
+  otro RK de orden superior) de alguna librería o de alguna tarea anterior.
+  Debe indicar en su informe la procedencia del código utilizado para RK.
+
+\end{ayuda}
+
+%% FIN ENUNCIADO ===============================================================
+%% =============================================================================
+
+\end{document}
