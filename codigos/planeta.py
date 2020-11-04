@@ -1,3 +1,5 @@
+import numpy as np
+
 class Planeta(object):
     """
     Complete el docstring.
@@ -23,8 +25,10 @@ class Planeta(object):
         primer orden.
         """
         x, y, vx, vy = self.y_actual
-        # fx = ...
-        # fy = ...
+        r = np.sqrt(x**2 + y**2)
+        aux = - r**(-3) + 2*self.alpha*r**(-4)
+        fx = x * aux
+        fy = y * aux
         return [vx, vy, fx, fy]
 
     def avanza_rk4(self, dt):
