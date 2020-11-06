@@ -77,7 +77,7 @@ class Planeta(object):
         v_n = np.array([vx, vy])
         mov = self.ecuacion_de_movimiento()
         a_n = np.array([mov[2], mov[3]])
-        x_n1 = x_n + v_n*dt + a_n*dt*dt/2
+        x_n1 = x_n + v_n*dt + a_n*(dt**2)/2
         self.y_actual[0] = x_n1[0]
         self.y_actual[1] = x_n1[1]
         mov1 = self.ecuacion_de_movimiento()
@@ -102,7 +102,7 @@ class Planeta(object):
             v_n = np.array([vx, vy])
             mov = self.ecuacion_de_movimiento()
             a_n = np.array([mov[2], mov[3]])
-            x_n1 = x_n + v_n*dt + (4*a_n - self.a_previo)*dt*dt/6
+            x_n1 = x_n + v_n*dt + (4*a_n - self.a_previo)*(dt**2)/6
             self.y_actual[0] = x_n1[0]
             self.y_actual[1] = x_n1[1]
             mov1 = self.ecuacion_de_movimiento()
@@ -118,13 +118,22 @@ class Planeta(object):
         """
         Calcula la enérgía total del sistema en las condiciones actuales.
         """
-        pass
+        x, y, vx, vy = self.y_actual
+        r = np.sqrt(x**2 + y**2)
+        vr = np.sqrt(vx**2 + vy**2)
+        U = -1/r + self.alpha/(r**2)
+        K = (vr**2) / 2
+        return U + K
+
 
 mercurio = Planeta([1,1,2,3])
 print(mercurio.y_actual)
+print(mercurio.energia_total())
 mercurio.avanza_beeman(0.1)
 print(mercurio.y_actual)
 print(mercurio.t_actual)
+print(mercurio.energia_total())
 mercurio.avanza_beeman(0.1)
 print(mercurio.y_actual)
 print(mercurio.t_actual)
+print(mercurio.energia_total())
