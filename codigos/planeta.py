@@ -92,7 +92,26 @@ class Planeta(object):
         """
         Similar a avanza_rk4, pero usando Beeman.
         """
-        pass
+        if self.t_actual == 0:
+            mov = self.ecuacion_de_movimiento()
+            self.a_previo = np.array([mov[2], mov[3]])
+            self.avanza_rk4(dt)  # se hace un paso con rk la primera vez
+        else:
+            x, y, vx, vy = self.y_actual
+            x_n = np.array([x, y])
+            v_n = np.array([vx, vy])
+            mov = self.ecuacion_de_movimiento()
+            a_n = np.array([mov[2], mov[3]])
+            x_n1 = x_n + v_n*dt + (4*a_n - self.a_previo)*dt*dt/6
+            self.y_actual[0] = x_n1[0]
+            self.y_actual[1] = x_n1[1]
+            mov1 = self.ecuacion_de_movimiento()
+            a_n1 = np.array([mov1[2], mov1[3]])
+            v_n1 = v_n + (2*a_n1 + 5*a_n - self.a_previo)*dt/6
+            self.y_actual[2] = v_n1[0]
+            self.y_actual[3] = v_n1[1]
+            self.t_actual += dt
+
 
 
     def energia_total(self):
@@ -103,6 +122,9 @@ class Planeta(object):
 
 mercurio = Planeta([1,1,2,3])
 print(mercurio.y_actual)
-mercurio.avanza_verlet(0.1)
+mercurio.avanza_beeman(0.1)
+print(mercurio.y_actual)
+print(mercurio.t_actual)
+mercurio.avanza_beeman(0.1)
 print(mercurio.y_actual)
 print(mercurio.t_actual)
