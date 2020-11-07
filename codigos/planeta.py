@@ -108,6 +108,7 @@ class Planeta(object):
             self.y_actual[2] = v_n1[0]
             self.y_actual[3] = v_n1[1]
             self.t_actual += dt
+            self.a_previo = a_n
 
     def energia_total(self):
         """
