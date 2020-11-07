@@ -1,8 +1,9 @@
 import numpy as np
 
+
 class Planeta(object):
     """
-    La clase Planeta representa planetas. 
+    La clase Planeta representa planetas.
 
     Un planeta posee los siguientes valores asociados:
         y_actual (np.array) las condiciones actuales de posicion y velocidad
@@ -28,10 +29,9 @@ class Planeta(object):
         >> print(mercurio.alpha)
         >> 0.
         """
-        self.y_actual = condicion_inicial
+        self.y_actual = np.array(condicion_inicial)
         self.t_actual = 0.
         self.alpha = alpha
-
 
     def ecuacion_de_movimiento(self):
         """
@@ -44,7 +44,6 @@ class Planeta(object):
         fx = x * aux
         fy = y * aux
         return np.array([vx, vy, fx, fy])
-
 
     def avanza_rk4(self, dt):
         """
@@ -67,7 +66,6 @@ class Planeta(object):
         ans = self.y_actual + (k1_n + 2*k2_n + 2*k3_n + k4_n)/6
         self.y_actual = ans
 
-
     def avanza_verlet(self, dt):
         """
         Similar a avanza_rk4, pero usando Verlet (Velocity Verlet)
@@ -86,7 +84,6 @@ class Planeta(object):
         self.y_actual[2] = v_n1[0]
         self.y_actual[3] = v_n1[1]
         self.t_actual += dt
-
 
     def avanza_beeman(self, dt):
         """
@@ -112,8 +109,6 @@ class Planeta(object):
             self.y_actual[3] = v_n1[1]
             self.t_actual += dt
 
-
-
     def energia_total(self):
         """
         Calcula la enérgía total del sistema en las condiciones actuales.
@@ -124,16 +119,3 @@ class Planeta(object):
         U = -1/r + self.alpha/(r**2)
         K = (vr**2) / 2
         return U + K
-
-
-mercurio = Planeta([1,1,2,3])
-print(mercurio.y_actual)
-print(mercurio.energia_total())
-mercurio.avanza_beeman(0.1)
-print(mercurio.y_actual)
-print(mercurio.t_actual)
-print(mercurio.energia_total())
-mercurio.avanza_beeman(0.1)
-print(mercurio.y_actual)
-print(mercurio.t_actual)
-print(mercurio.energia_total())
