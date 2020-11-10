@@ -22,7 +22,7 @@ x_rk = []
 y_rk = []
 t_rk = []
 E_rk = []
-dt = 0.05
+dt = 0.005
 
 sol = mercurio_rk.y_actual
 x_rk.append(sol[0])
@@ -49,7 +49,7 @@ x_vv = []
 y_vv = []
 t_vv = []
 E_vv = []
-dt = 0.05
+dt = 0.005
 
 sol = mercurio_verlet.y_actual
 x_vv.append(sol[0])
@@ -76,7 +76,7 @@ x_bm = []
 y_bm = []
 t_bm = []
 E_bm = []
-dt = 0.05
+dt = 0.005
 sol = mercurio_beeman.y_actual
 x_bm.append(sol[0])
 y_bm.append(sol[1])
@@ -158,3 +158,38 @@ while i < 60:
     j += 1
     if (y_a[j-1] <= 0 and 0 < y_a[j]) or (y_a[j-1] >= 0 and 0 > y_a[j]):
         i += 1
+
+
+# plot de la orbita
+plt.figure(5)
+plt.clf()
+plt.plot(x_a, y_a)
+plt.xlabel("posición del planeta en el eje X")
+plt.ylabel("posición del planete en el eje Y")
+plt.show()
+
+# plot de la energia c/r al tiempo
+plt.figure(6)
+plt.clf()
+plt.plot(t_a, E_a)
+plt.xlabel("tiempo")
+plt.ylabel("energía")
+plt.show()
+
+# encontrar el afelio
+r_a = []
+for i in range(len(x_a)):
+    r = (x_a[i]**2 + y_a[i]**2)**(-2)
+    r_a.append(r)
+
+m = r_a[0]
+i_m = 0
+for i in range(1, len(r_a)):
+    if r_a[i]>m:
+        m = r_a[i]
+        i_m = i
+
+x_afelio = x_a[i_m]
+y_afelio = y_a[i_m]
+
+print("Las coordenadas del afelio son ("+str(x_afelio)+","+str(y_afelio)+")")
