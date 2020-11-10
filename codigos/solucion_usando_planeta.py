@@ -98,39 +98,39 @@ while i < 10:
 
 
 # plot de energia con cada metodo
-#plt.figure(1)
-#plt.clf()
-#plt.plot(t_rk, E_rk, label="Energía total con Runge Kutta")
-#plt.plot(t_bm, E_bm, label="Energía total con Beeman")
-#plt.plot(t_vv, E_vv, label="Energía total con Velocity Verlet")
-#plt.xlabel("tiempo")
-#plt.ylabel("energía")
-#plt.legend()
-#plt.show()
+plt.figure(1)
+plt.clf()
+plt.plot(t_rk, E_rk, label="Energía total con Runge Kutta")
+plt.plot(t_bm, E_bm, label="Energía total con Beeman")
+plt.plot(t_vv, E_vv, label="Energía total con Velocity Verlet")
+plt.xlabel("tiempo")
+plt.ylabel("energía")
+plt.legend()
+plt.show()
 
 # plot de la orbita con runge kutta
-#plt.figure(2)
-#plt.clf()
-#plt.plot(x_rk, y_rk)
-#plt.xlabel("posición del planeta en el eje X")
-#plt.ylabel("posición del planeta en el eje Y")
-#plt.show()
+plt.figure(2)
+plt.clf()
+plt.plot(x_rk, y_rk)
+plt.xlabel("posición del planeta en el eje X")
+plt.ylabel("posición del planeta en el eje Y")
+plt.show()
 
 # plot de la orbita con velocity verlet
-#plt.figure(3)
-#plt.clf()
-#plt.plot(x_vv, y_vv)
-#plt.xlabel("posición del planeta en el eje X")
-#plt.ylabel("posición del planeta en el eje Y")
-#plt.show()
+plt.figure(3)
+plt.clf()
+plt.plot(x_vv, y_vv)
+plt.xlabel("posición del planeta en el eje X")
+plt.ylabel("posición del planeta en el eje Y")
+plt.show()
 
 # plot de la orbita con beeman
-#plt.figure(4)
-#plt.clf()
-#plt.plot(x_bm, y_bm)
-#plt.xlabel("posición del planeta en el eje X")
-#plt.ylabel("posición del planete en el eje Y")
-#plt.show()
+plt.figure(4)
+plt.clf()
+plt.plot(x_bm, y_bm)
+plt.xlabel("posición del planeta en el eje X")
+plt.ylabel("posición del planete en el eje Y")
+plt.show()
 
 
 # se simula la rotacion con alpha mayor a 0
@@ -176,14 +176,13 @@ while i < 60:
         i += 1
 
 
-
 # plot de la energia c/r al tiempo
-#plt.figure(5)
-#plt.clf()
-#plt.plot(t_a, E_a)
-#plt.xlabel("tiempo")
-#plt.ylabel("energía")
-#plt.show()
+plt.figure(5)
+plt.clf()
+plt.plot(t_a, E_a)
+plt.xlabel("tiempo")
+plt.ylabel("energía")
+plt.show()
 
 # encontrar afelios
 x_afelio = []
@@ -230,4 +229,4 @@ t2 = t_afelio[2]
 dt = t2 - t1
 dang = ang2 - ang1
 vel = dang/dt
-print("La velocidad angular de precesion promedio es "+ str(vel))
+print("La velocidad angular de precesion promedio es " + str(vel))
